@@ -1,0 +1,22 @@
+void turn_right();
+
+
+//This Pogram is a funcion for make a 90 degrees Right turn
+task main()
+{
+	//code....
+}
+
+void turn_right()
+{
+	//Make a 90 Degrees Right turn
+		motor[motorB] = -25;
+  	motor[motorC] = 25;
+		//wait1Msec(750);
+		wait1Msec(745);
+
+	//Stop After turn Right executed
+		motor[motorA] = 0;
+  	motor[motorB] = 0;
+		wait1Msec(200);
+}
