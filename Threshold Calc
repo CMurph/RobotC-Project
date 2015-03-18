@@ -1,0 +1,48 @@
+#pragma config(Sensor, S1,     sonicSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     soundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     lightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     touchSensor,    sensorTouch)
+
+int threshold_calc();
+
+task main()
+{
+	int threshold;
+
+	threshold=threshold_calc();
+}
+
+int threshold_calc()
+{
+	int lightValue;
+	int darkValue=0;
+	int sumValue;
+	int thresholdValue;
+
+	//read white value
+	while(SensorValue(touchSensor)==0)
+	{
+		nxtDisplayTextLine(3, "Read Light Now");
+	}
+	lightValue=SensorValue(lightSensor);
+	wait1Msec(1000);
+
+	//read black value
+	while(SensorValue(touchSensor)==0)
+	{
+		nxtDisplayTextLine(3, "Read Dark Now");
+	}
+	//calculate threshold
+	darkValue=SensorValue(lightSensor);
+	sumValue=lightValue+darkValue;
+	thresholdValue=sumValue/2;
+
+	wait1Msec(1000);
+	while(SensorValue(touchSensor)==0)
+	{
+	nxtDisplayTextLine(3, "Press to StartTask");
+	}
+	wait1Msec(3000);
+
+	return thresholdValue;
+}//end of threshold_calc
