@@ -1,0 +1,29 @@
+#pragma config(Sensor, S1,     sonicSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     soundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     lightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     touchSensor,    sensorTouch)
+
+/* forward function to go forward 1 square */
+task main()
+{
+	nMotorPIDSpeedCtrl[motorA] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+
+	nMotorEncoder[motorA]=0;
+	nMotorEncoder[motorB]=0;
+
+	//distance of one square
+	nMotorEncoderTarget[motorA]=280;
+	nMotorEncoderTarget[motorB]=280;
+
+	motor[motorA]= 40;
+	motor[motorB]= 40;
+
+	while(nMotorRunState[motorA] != runStateIdle)
+	{
+		}
+		motor[motorA]= 0;
+		motor[motorB]= 0;
+
+
+}
