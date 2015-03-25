@@ -1,0 +1,240 @@
+#pragma config(Sensor, S1,     sonicSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     soundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     lightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     touchSensor,    sensorTouch)
+
+void threshold_calc();
+void turn_right();
+void turn_left();
+int forward();
+
+int direction = 1;
+/*
+direction = 0 when robot facing up
+direction = 1 when robot facing right
+direction = 2 when robot facing down
+direction = 3 when robot facing left
+*/
+int threshold = 59;
+int row=4;
+int col=0;
+
+
+task main()
+{
+	nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorC] = mtrSpeedReg;
+	
+//	threshold_calc();
+while(1==1)
+{
+	forward();
+}
+
+
+
+}
+
+
+
+
+
+void turn_left()
+{
+	
+//Make a 90 Degrees Right turn
+motor[motorB] = 25;
+motor[motorC] = -25;
+//wait1Msec(750);
+wait1Msec(750);
+
+//Stop After turn Right executed
+motor[motorB] = 0;
+motor[motorB] = 0;
+wait1Msec(200);
+
+//calculating direction
+direction =direction-1;
+if (direction== -1) //required as RobotC can not get the mod of negative numbers
+{
+	direction = 3;
+}
+direction =(direction % 4);
+
+}
+
+
+
+void turn_right()
+{
+//Make a 90 Degrees Right turn
+motor[motorB] = -25;
+motor[motorC] = 25;
+//wait1Msec(750);
+wait1Msec(750);
+//Stop After turn Right executed
+motor[motorB] = 0;
+motor[motorC] = 0;
+wait1Msec(200);
+
+//calculating direction
+direction= direction +1;
+if (direction== -1) //required as RobotC can not get the mod of negative numbers
+{
+	direction = 3;
+}
+direction= (direction %4);
+}
+
+
+
+int forward()
+{
+	//postions robot cannot go forward
+	if(direction==0 && row==6)
+	{
+		turn_left();
+		return 0;
+	}
+	if(direction==1 && col==8)
+	{
+		turn_left();
+		return 0;
+	}
+	if(direction==2 && row==0)
+	{
+		turn_left();
+		return 0;
+	}
+	if(direction==3 && col==0)
+	{
+		turn_left();
+		return 0;
+	}
+
+	nMotorEncoder[motorB]=0;
+	nMotorEncoder[motorC]=0;
+
+	//go forward small amount to test for black
+	nMotorEncoderTarget[motorB]=80;
+	nMotorEncoderTarget[motorC]=80;
+	
+	motor[motorB]= 40;
+	motor[motorC]= 40;
+	
+	while(nMotorRunState[motorB] != runStateIdle)
+	{
+	}
+	motor[motorB]= 0;
+	motor[motorC]= 0;
+	wait1Msec(200);
+	
+	//if black detected return to postion
+	if (SensorValue(lightSensor) < threshold)
+	{
+			//turn 180
+			turn_right();
+			turn_right();
+			
+			nMotorEncoderTarget[motorB]=80;
+			nMotorEncoderTarget[motorC]=80;
+			
+			motor[motorB]= 40;
+			motor[motorC]= 40;
+			
+		
+			//stop when reach distance
+			while(nMotorRunState[motorB] != runStateIdle)
+			{
+			}
+			motor[motorB]= 0;
+			motor[motorC]= 0; 
+			wait1Msec(200);
+			
+			//turn left
+			turn_right();
+
+		
+	}//end of if
+	
+	
+	else //if no black box detected
+	{
+		
+			//remaining distance of one square
+		nMotorEncoderTarget[motorB]=200;
+		nMotorEncoderTarget[motorC]=200;
+		
+		motor[motorB]= 40;
+		motor[motorC]= 40;
+
+	
+		while(nMotorRunState[motorB] != runStateIdle)
+		{
+		}
+		motor[motorB]= 0;
+		motor[motorC]= 0;
+		wait1Msec(200);
+		
+		//calculation postion in grid
+		if(direction==0) //if facing up
+		{
+			row=row+1;
+		}
+		
+		if(direction==1)//if facing right
+		{
+			col=col+1;
+		}
+		
+				if(direction==2)//if facing down
+		{
+			row=row-1;
+		}
+		
+				if(direction==3) //if facing left
+		{
+			col=col-1;
+		}
+	}//end of else
+	
+	return 0;
+}//end of forward()
+
+
+
+void threshold_calc()
+{
+	int lightValue;
+	int darkValue=0;
+	int sumValue;
+	int thresholdValue;
+
+	//read white value
+	while(SensorValue(touchSensor)==0)
+	{
+		nxtDisplayTextLine(3, "Read Light Now");
+	}
+	lightValue=SensorValue(lightSensor);
+	wait1Msec(1000);
+
+	//read black value
+	while(SensorValue(touchSensor)==0)
+	{
+		nxtDisplayTextLine(3, "Read Dark Now");
+	}
+	//calculate threshold
+	darkValue=SensorValue(lightSensor);
+	sumValue=lightValue+darkValue;
+	thresholdValue=sumValue/2;
+	threshold = thresholdValue;
+	wait1Msec(1000);
+	while(SensorValue(touchSensor)==0)
+	{
+	nxtDisplayTextLine(2, "Threshold is %d", threshold);
+	nxtDisplayTextLine(3, "Press to StartTask");
+	}
+	wait1Msec(1000);
+
+
+}//end of threshold_calc
