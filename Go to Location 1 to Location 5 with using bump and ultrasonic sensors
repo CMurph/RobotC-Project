@@ -1,0 +1,108 @@
+// Go to Location 1 to Location 5 with using bump and ultrasonic sensors
+// 04/02/2014 - Lab 3 -Task10
+// Code made by Zoltan N. and Kieran .
+
+
+	const tSensors bumper = (tSensors) S1;
+	const tSensors sonar = (tSensors) S2;
+
+ task main()
+ {
+   	nMotorPIDSpeedCtrl[motorA] = mtrSpeedReg;
+		nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+   	SetSensorType(S1, sensorTouch);
+   	SetSensorType(S2, sensorSONAR);
+
+
+   //go forward with 100% power
+		motor[motorA] = 100;
+  	motor[motorB] = 100;
+
+  	//go forward with 100% power
+ 	while(SensorValue(sonar) > 36)
+ 		{
+ 			motor[motorA] = 100;
+ 			motor[motorB] = 100;
+ 		}
+
+
+ 		//if Block 2 is hit, then reverse while making a 180degree turn
+ 		if (SensorValue(sonar) < 35)
+ 		{
+
+ 			//Reverse back
+ 		motor[motorA] = -25;
+  	motor[motorB] = -25;
+		wait1Msec(300);
+
+
+ 		//Turn left 90degrees (turn left at the firts junction)
+ 		motor[motorA] = 25;
+  	motor[motorB] = 0;
+		wait1Msec(1400);
+ 		}
+
+
+ 		while(SensorValue(bumper) == 0)
+ 		{
+ 			motor[motorA] = 100;
+ 			motor[motorB] = 100;
+ 		}
+
+
+ 		//if Block 3 is hit, then reverse while making a 180degree turn
+ 		if (SensorValue(bumper) == 1)
+ 		{
+
+ 			//Reverse back
+ 		motor[motorA] = -25;
+  	motor[motorB] = -25;
+		wait1Msec(300);
+
+
+ 		//Turn left 90degrees (turn left at the firts junction)
+ 		motor[motorA] = 25;
+  	motor[motorB] = 0;
+		wait1Msec(1400);
+ 		}
+
+
+ 		while(SensorValue(bumper) == 0)
+ 		{
+ 			motor[motorA] = 100;
+ 			motor[motorB] = 100;
+ 		}
+
+
+ 		//if Block 4 is hit, then reverse while making a 180degree turn
+ 		if (SensorValue(bumper) == 1)
+ 		{
+
+ 			//Reverse back
+ 		motor[motorA] = -25;
+  	motor[motorB] = -25;
+		wait1Msec(300);
+
+
+ 		//Turn left 90degrees (turn left at the firts junction)
+ 		motor[motorA] = 25;
+  	motor[motorB] = 0;
+		wait1Msec(1400);
+ 		}
+
+		//Go towards Block
+ 		motor[motorA] = 50;
+  	motor[motorB] = 50;
+		wait1Msec(1400);
+
+		//Turn left 90 degrees (Park in the cube)
+		motor[motorA] = 50;
+	  motor[motorB] = 0;
+		wait1Msec(700);
+
+		//go forward with XY Cm
+		motor[motorA] = 50;
+	  motor[motorB] = 50;
+		wait1Msec(600);
+
+ }
