@@ -1,0 +1,15 @@
+task main()
+{
+
+nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+nMotorPIDSpeedCtrl[motorC] = mtrSpeedReg;
+
+  //go forward with 100% power
+	motor[motorB] = 60;
+  motor[motorC] = 60;
+	wait1Msec(8000);
+
+
+
+
+}
