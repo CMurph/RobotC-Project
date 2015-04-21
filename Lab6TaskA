@@ -1,0 +1,52 @@
+#pragma config(Sensor, S1,     SonarSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     SoundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     LightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     TouchSensor,    sensorTouch)
+//Team computing LAb 5 / Task 8
+//17/02/2015 - 24/02/2015
+//Authors: team R -- Kieran M. and Zoltan N.
+
+
+
+
+//the program will go forward and count each black line as one.
+
+task main()
+{
+	int counterValue = 0;
+	int lastSeen=1;
+
+while(SensorValue (TouchSensor) ==0 )
+{
+	//Sync Motors
+	nMotorPIDSpeedCtrl[motorA]= mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorB]= mtrSpeedReg;
+
+		motor[motorA]=50;
+		motor[motorB]=50;
+
+	if (SensorValue(LightSensor) < 38.5)
+		{
+			if (lastSeen == 1 )
+			{
+
+				counterValue++;
+
+				lastSeen=0;
+		//		PlaySound(soundBeepBeep);
+			}
+		}
+		else
+		{
+			lastSeen=1;
+		}
+}
+
+		motor[motorA]=0;
+		motor[motorB]=0;
+
+	// print LineCount on line 1 (lines start at 0, so this is the 2nd line on the screen)
+		  nxtDisplayTextLine(2, "Counted lines: %d", counterValue);
+  		wait10Msec(1899);
+
+}//end main()
