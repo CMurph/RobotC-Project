@@ -1,0 +1,26 @@
+// Display power and speed setting on the NXT screen
+// 04/02/2014 - Lab 3 -Task7
+// Code made by Zoltan N. and Kieran .
+
+task main()
+
+{
+	int speed = 10;
+  string varA = "75";
+  int varB = 100;
+
+  //go forward XY CM (Start from he current position)
+	motor[motorA] = speed;
+  motor[motorB] = speed;
+	wait1Msec(1000/speed);
+
+  // print varA on line 1 (lines start at 0, so this is the 2nd line on the screen)
+  nxtDisplayTextLine(1, "Speed Set: %d", speed);
+
+  // print varB on line 2
+  nxtDisplayTextLine(2, "Batt Lev: %d", varB);
+
+
+
+
+}
