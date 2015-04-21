@@ -1,0 +1,16 @@
+// Code was made by Kieran and Zoltan N.
+// 28/01/2014 - Lab 2
+
+
+
+//sync Motors. so if one motor stops, the other stops as well.
+task main()
+{
+	nSyncedMotors = synchBC;
+	nSyncedTurnRatio = 100;
+
+	motor [motorB] = 50;
+	wait1Msec (5000);
+
+
+}
