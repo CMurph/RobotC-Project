@@ -1,0 +1,52 @@
+task main()
+{
+
+nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+nMotorPIDSpeedCtrl[motorC] = mtrSpeedReg;
+
+  //go forward with 100% power
+	motor[motorB] = 100;
+  motor[motorC] = 100;
+	wait1Msec(2000);
+
+
+	// turn right
+	motor[motorB] = 100;
+	motor[motorC] = 0;
+	wait1Msec(1500);
+
+	//go forward with 100% power
+	motor[motorB] = 100;
+  motor[motorC] = 100;
+	wait1Msec(2000);
+
+
+	// turn right
+	motor[motorB] = 100;
+	motor[motorC] = 0;
+	wait1Msec(1500);
+
+	//go forward with 100% power
+	motor[motorB] = 100;
+  motor[motorC] = 100;
+	wait1Msec(2000);
+
+
+	// turn right
+	motor[motorB] = 100;
+	motor[motorC] = 0;
+	wait1Msec(1500);
+
+	//go forward with 100% power
+	motor[motorB] = 100;
+  motor[motorC] = 100;
+	wait1Msec(2000);
+
+
+	// turn right
+	motor[motorB] = 100;
+	motor[motorC] = 0;
+	wait1Msec(1500);
+
+
+}
