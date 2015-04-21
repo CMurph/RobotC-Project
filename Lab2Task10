@@ -1,0 +1,91 @@
+// Code was made by Kieran and Zoltan N.
+// 28/01/2014 - Lab 2 - task 9
+//Speed was calculated the original time was multiplied b he original speed, thats ow we got the distance
+
+
+task main()
+{
+	int counter, speed;
+	int min = 100;
+	int max = 200;
+	int min2 = 1;
+	int max2 = 100;
+	nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorC] = mtrSpeedReg;
+
+	speed = (rand() % (max2-min2)) +min2;
+
+  //go forward XY CM (Start from he current position)
+	motor[motorB] = speed;
+  motor[motorC] = speed;
+	wait1Msec(100000/speed);
+
+	//Tun left 90degrees (turn left at the firts junction)
+	motor[motorB] = speed;
+  motor[motorC] = 0;
+	wait1Msec(37500/speed);
+
+	 //go forward with XY Cm
+	motor[motorB] = speed;
+  motor[motorC] = speed;
+	wait1Msec(100000/speed);
+
+	counter = (rand() % (max-min)) +min;
+
+	if ((counter %2) == 0)
+	{
+
+		 //Turn right 90 degrees (Turn right at the second junction)
+		motor[motorB] = 0;
+	  motor[motorC] = speed;
+		wait1Msec(37500/speed);
+
+		//go forward with XY Cm
+		motor[motorB] = speed;
+	  motor[motorC] = speed;
+		wait1Msec(40000/speed);
+
+		//Turn right 90 degrees (Park in the cube)
+		motor[motorB] = 0;
+	  motor[motorC] = speed;
+		wait1Msec(37500/speed);
+
+		//go forward with XY Cm
+		motor[motorB] = speed;
+	  motor[motorC] = speed;
+		wait1Msec(70000/speed);
+	}
+
+	else
+	{
+		 //Turn left 90 degrees (Turn right at the second junction)
+		motor[motorB] = speed;
+	  motor[motorC] = 0;
+		wait1Msec(37500/speed);
+
+			//go forward with XY Cm
+		motor[motorB] = speed;
+	  motor[motorC] = speed;
+		wait1Msec(80000/speed);
+
+		//Turn left 90 degrees (Park in the cube)
+		motor[motorB] = speed;
+	  motor[motorC] = 0;
+		wait1Msec(37500/speed);
+
+		//go forward with XY Cm
+		motor[motorB] = speed;
+	  motor[motorC] = speed;
+		wait1Msec(40000/speed);
+
+			//Turn left 90 degrees (Park in the cube)
+		motor[motorB] = speed;
+	  motor[motorC] = 0;
+		wait1Msec(37500/speed);
+
+				//go forward with XY Cm
+		motor[motorB] = speed;
+	  motor[motorC] = speed;
+		wait1Msec(45000/speed);
+	}
+}
