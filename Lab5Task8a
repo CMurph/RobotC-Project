@@ -1,0 +1,37 @@
+//Team computing LAb 5 / Task 8
+//Count the number of crossed lines and display on the screen
+const tSensors sonicSensor = (tSensors) S1;
+
+
+//prototype
+int counter();
+
+task main()
+{
+	int counter = 0;
+
+	nMotorPIDSpeedCtrl[motorA]= mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorB]= mtrSpeedReg;
+
+
+//Robot go forward
+
+		motor[motorA] = 50;
+		motor[motorB] = 50;
+		wait1Msec(8000);
+
+		// print LineCount on line 1 (lines start at 0, so this is the 2nd line on the screen)
+  nxtDisplayTextLine(1, "Counted line: %d", counter);
+
+}//end main()
+
+//Implment function line count
+int counter(int counter)
+	{
+		while (SensorValue(sonicSensor) <45)
+		{
+		counter++;
+		}
+		return (counter);
+	}
+
