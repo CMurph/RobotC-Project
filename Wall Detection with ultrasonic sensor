@@ -1,0 +1,27 @@
+// Wall Detection with ultrasonic sensor
+// 04/02/2014 - Lab 3 -Task9
+// Code made by Zoltan N. and Kieran .
+
+ const tSensors sonar = (tSensors) S2;
+
+ task main()
+ {
+   SetSensorType(S2, sensorSONAR);
+
+ 	while(SensorValue(sonar) > 10)
+ 		{
+ 			motor[motorA] = 100;
+ 			motor[motorB] = 100;
+ 		}
+
+ 		if (SensorValue(sonar) < 10)
+ 		{
+
+ 		motor[motorA] = -75;
+ 		motor[motorB] = -75;
+ 		wait1Msec(2000);
+
+ 		}
+
+
+ }
