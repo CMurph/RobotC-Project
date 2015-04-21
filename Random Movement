@@ -1,0 +1,15 @@
+task main()
+{
+	int counter;
+	int min = 100;
+	int max = 200;
+
+		counter = (rand() % (max-min)) +min;
+	if ((counter %2) == 0)
+		{
+	//go forward XY CM (Start from he current position)
+		motor[motorB] = 50;
+	  motor[motorC] = 50;
+		wait1Msec(2000);
+		}
+}
