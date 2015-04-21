@@ -1,0 +1,31 @@
+// Wall Detection with touch sensor
+// 04/02/2014 - Lab 3 -Task8
+// Code made by Zoltan N. and Kieran .
+
+ const tSensors bumper = (tSensors) S1;
+
+ task main()
+ {
+   SetSensorType(S1, sensorTouch);
+   //go forward with 100% power
+	motor[motorA] = 100;
+  motor[motorB] = 100;
+	wait1Msec(2000);
+
+ 	while(SensorValue(bumper) == 0)
+ 		{
+ 			motor[motorA] = 50;
+ 			motor[motorB] = 100;
+ 		}
+
+ 		if (SensorValue(bumper) == 1)
+ 		{
+
+ 		motor[motorA] = -75;
+ 		motor[motorB] = -75;
+
+ 			wait1Msec(1000);
+ 		}
+
+
+ }
