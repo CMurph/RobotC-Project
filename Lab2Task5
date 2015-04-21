@@ -1,0 +1,20 @@
+task main()
+{
+
+	//Usind PID to sync motors
+	nMotorPIDSpeedCtrl[motorA] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[motorB] = mtrSpeedReg;
+
+
+  //go forward with 100% power
+	motor[motorA] = 100;
+  motor[motorB] = 100;
+  if ([motorA]==0 || motorB==0)
+  {
+  		motor[motorA] = 0;
+ 			motor[motorB] = 0;
+  }
+	wait1Msec(1000);
+
+
+}
