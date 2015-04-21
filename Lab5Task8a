@@ -1,37 +1,52 @@
+#pragma config(Sensor, S1,     SonarSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     SoundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     LightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     TouchSensor,    sensorTouch)
 //Team computing LAb 5 / Task 8
-//Count the number of crossed lines and display on the screen
-const tSensors sonicSensor = (tSensors) S1;
+//17/02/2015 - 24/02/2015
+//Authors: team R -- Kieran M. and Zoltan N.
 
 
-//prototype
-int counter();
+//the program will go forward and count each black line
+
 
 task main()
 {
-	int counter = 0;
+	int counterValue = 0;
+	int lastSeen;
 
+
+while(SensorValue (TouchSensor) ==0 )
+{
+	//Sync Motors
 	nMotorPIDSpeedCtrl[motorA]= mtrSpeedReg;
 	nMotorPIDSpeedCtrl[motorB]= mtrSpeedReg;
 
+		motor[motorA]=50;
+		motor[motorB]=50;
 
-//Robot go forward
+	if (SensorValue(LightSensor) < 55)
+		{
+			if (lastSeen == 1 )
+			{
 
-		motor[motorA] = 50;
-		motor[motorB] = 50;
-		wait1Msec(8000);
+				counterValue = counterValue +1;
+				lastSeen=0;
+			}
+		}
+		else
+		{
+			lastSeen = 1;
+		}
+}
 
-		// print LineCount on line 1 (lines start at 0, so this is the 2nd line on the screen)
-  nxtDisplayTextLine(1, "Counted line: %d", counter);
+		motor[motorA]=0;
+		motor[motorB]=0;
+
+	// print LineCount on line 1 (lines start at 0, so this is the 2nd line on the screen)
+		  nxtDisplayTextLine(1, "Counted lines: %d", counterValue);
+
+  		wait10Msec(1899);
 
 }//end main()
-
-//Implment function line count
-int counter(int counter)
-	{
-		while (SensorValue(sonicSensor) <45)
-		{
-		counter++;
-		}
-		return (counter);
-	}
 
