@@ -1,0 +1,7 @@
+task main ()
+{
+  //go forward with 100% power
+	motor[motorB] = 100;
+  motor[motorC] = 35;
+	wait1Msec(4000);
+}
