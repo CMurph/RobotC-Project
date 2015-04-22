@@ -1,0 +1,45 @@
+#pragma config(Sensor, S1,     sonicSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     soundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     lightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     touchSensor,    sensorTouch)
+
+//Program is to make a 90degrees accurate turn by rotaion turn
+
+
+task main()
+{
+	int i = 0;
+	//set Valus to zero
+	nMotorEncoder[motorB] = 0;
+	nMotorEncoder[motorC] = 0;
+
+	for (i=0; i<8; i++)
+	{
+	//set the turn
+	nMotorEncoderTarget[motorB] = 725;
+	nMotorEncoderTarget[motorC] = 725;
+
+	//set speed
+	motor[motorB] = - 25;
+	motor[motorC] = 25;
+
+		while(nMotorRunState[motorC] != runStateIdle)
+	{
+	}
+
+	//Stop NXT
+	motor[motorB] = 0;
+	motor[motorC] = 0;
+	}
+
+	//infinite loop until the condition satisfied
+	while(nMotorRunState[motorC] != runStateIdle)
+	{
+	}
+
+	//Stop NXT
+	motor[motorB] = 0;
+	motor[motorC] = 0;
+
+
+}//end main()
