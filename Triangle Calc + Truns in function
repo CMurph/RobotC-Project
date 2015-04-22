@@ -1,0 +1,142 @@
+#pragma config(Sensor, S1,     sonicSensor,    sensorSONAR)
+#pragma config(Sensor, S2,     soundSensor,    sensorSoundDB)
+#pragma config(Sensor, S3,     lightSensor,    sensorLightActive)
+#pragma config(Sensor, S4,     touchSensor,    sensorTouch)
+
+//This programm will the triangle and the distance for Block1 and Block2.
+
+int triangle_calc1();
+int triangle_calc2();
+
+task main()
+{
+}
+
+//Triangle Calculation for block1
+int triangle_calc1()
+{
+	//Block1 with temporary value
+	int block1_col = 2;
+	int block1_row = 7;
+
+	//Starting Position
+	int scol = 4;
+	int srow = 1;
+
+	//declare variables
+	int a = 0;
+ 	int b = 0;
+ 	int block1_c = 0;
+ 	int angle = 0;
+ 	int block_distance = 181;
+ 	int temp = 0;
+
+ 	//Calc A and B for distance calculation for Block 1
+ 	a = scol - block1_col;
+ 	b = srow - block1_row;
+
+
+	//calc triangle side C for Block 1
+	block1_c = sqrt((a*a)+(b*b));
+
+
+	//get Sign(Angle) for block1
+	temp = block_distance / 90 ;
+	angle = b / block1_c;
+	angle = angle * temp;
+
+
+	//Implement Turn//
+	//set Valus to zero
+	nMotorEncoder[motorB] = 0;
+	nMotorEncoder[motorC] = 0;
+
+	//set the turn
+	nMotorEncoderTarget[motorB] = angle;
+	nMotorEncoderTarget[motorC] = angle;
+
+	//set speed
+	motor[motorB] = - 25;
+	motor[motorC] = 25;
+
+
+	//infinite loop until the condition satisfied
+	while(nMotorRunState[motorC] != runStateIdle)
+	{
+	}
+
+	//Stop NXT
+	motor[motorB] = 0;
+	motor[motorC] = 0;
+
+	//Display The Disance or Block 1
+		nxtDisplayTextLine(1, "The Distance for Block1 is: %d", block1_c);
+
+	return block1_c;
+}
+
+
+//Triangle Calculation for block2
+int triangle_calc2()
+{
+	//Block2 with temporary value
+	int block2_col = 1;
+	int block2_row = 4;
+
+	//Starting Position
+	int scol = 4;
+	int srow = 1;
+
+	//Declare variables
+	int a = 0;
+ 	int b = 0;
+ 	int block2_c = 0;
+ 	int angle = 0;
+ 	int block_distance = 181;
+ 	int temp = 0;
+
+
+ 	//Calc A and B for distance calculation for Block 2
+ 	a = scol - block2_col;
+ 	b = srow - block2_row;
+
+
+	//calc triangle side C for Block 2
+	block2_c = sqrt((a*a)+(b*b));
+
+
+	//get Sign(Angle) for block2
+	temp = block_distance / 90 ;
+	angle = sin(b / block2_c);
+	angle = angle * temp;
+
+
+	//Implement Turn//
+	//set Valus to zero
+	nMotorEncoder[motorB] = 0;
+	nMotorEncoder[motorC] = 0;
+
+	//set the turn
+	nMotorEncoderTarget[motorB] = angle;
+	nMotorEncoderTarget[motorC] = angle;
+
+	//set speed
+	motor[motorB] = - 25;
+	motor[motorC] = 25;
+
+
+	//infinite loop until the condition satisfied
+	while(nMotorRunState[motorC] != runStateIdle)
+	{
+	}
+
+	//Stop NXT
+	motor[motorB] = 0;
+	motor[motorC] = 0;
+
+
+	//Display The Disance or Block 2
+		nxtDisplayTextLine(2, "The Distance for Block1 is: %d", block2_c);
+
+	return block2_c;
+}
