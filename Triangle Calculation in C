@@ -1,0 +1,12 @@
+task main()
+{
+ int a = 5;
+ int b = 3;
+ int c = 0;
+
+//calc triangle side C
+	c = sqrt((a + b) *2);
+
+	//printf("The distanc is %d", c);
+
+}
